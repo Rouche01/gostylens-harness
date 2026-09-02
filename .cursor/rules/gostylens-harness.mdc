@@ -1,0 +1,30 @@
+# GoStylens harness rules
+
+## Scope
+
+This repo is for GoStylens operations — marketing, growth analytics, release comms, and automation. **Do not modify the Flutter app here.** App code lives in `../stylens`.
+
+## MCP routing
+
+| Task | MCP |
+|------|-----|
+| PostHog queries, funnels, experiments | PostHog MCP |
+| Marketing copy, positioning | Read `context/marketing/` |
+| Product facts | Read `context/product.md` |
+| Event names | Read `context/analytics-events.md` — use exact names |
+
+## Secrets
+
+- Never commit `.env` or API keys.
+- PostHog client SDK key (from app) ≠ personal API key (for queries).
+
+## Outputs
+
+- Save generated reports and drafts to `outputs/` with dated filenames.
+- Commit outputs when they're worth keeping as history; otherwise gitignore handles them.
+
+## When querying PostHog
+
+- Always specify a time range.
+- Cite numbers in recommendations.
+- Link funnel steps to exact event names from `context/analytics-events.md`.
