@@ -56,6 +56,18 @@ Agents treat these as **read-only**. Ship code changes in those repos, not here.
 - **Env**: `NOTION_EXPERIMENTS_DATABASE_ID` in `.env`
 - **Priority bias**: `Domain(s)` = `User Acquisition` (or both domains when mixed)
 
+## Meta Ads (Marketing API)
+
+- **Use:** read campaign / ad set / ad Insights (spend, clicks, CPC, CTR) for acquisition experiments
+- **Env:** `META_ACCESS_TOKEN`, `META_AD_ACCOUNT_ID` (optional `META_GRAPH_VERSION`)
+- **Script:** `./scripts/meta-ads-insights.sh [date_preset] [level]`
+  - Examples: `./scripts/meta-ads-insights.sh last_7d campaign`
+  - Levels: `campaign` | `adset` | `ad`
+- **Privacy policy URL** (App Dashboard → Settings → Basic): `https://gostylens.app/privacy`
+- **Mode:** Development is enough to read **your own** ad account; Live not required for that
+- **Token:** System User (preferred) or Graph API Explorer user token with `ads_read`
+- Pair Meta cost metrics with PostHog product events (`auth_succeeded`, `ai_stream_completed`) — Meta alone won’t show true activation without the app SDK
+
 ## Future integrations
 
 | Tool | Use case |
