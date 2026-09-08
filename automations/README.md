@@ -8,8 +8,8 @@ Templates for scheduled agent workflows. Create these in Cursor's Automations ed
 |-------|-------|
 | **Trigger** | Schedule — every Monday 9:00 AM |
 | **Repo** | `gostylens-harness` |
-| **Tools** | PostHog MCP, file write |
-| **Instructions** | Follow `agents/growth-analyst.md`. Run the weekly health check for the last 7 days. Save report to `outputs/YYYY-MM-DD-growth-report.md`. Summarize top 3 findings in the automation output. |
+| **Tools** | PostHog MCP, Notion MCP, file write |
+| **Instructions** | Follow `agents/growth-analyst.md`. Run the weekly health check for the last 7 days. Save report to `outputs/YYYY-MM-DD-growth-report.md`. Summarize top 3 findings. If clear acquisition gaps appear, create or update Notion Experiments `idea` rows (`Domain(s)` = `User Acquisition`, or both for mixed) — do not duplicate existing rows. |
 
 ## 2. Monthly marketing experiment backlog
 
@@ -17,8 +17,8 @@ Templates for scheduled agent workflows. Create these in Cursor's Automations ed
 |-------|-------|
 | **Trigger** | Schedule — 1st of month |
 | **Repo** | `gostylens-harness` |
-| **Tools** | PostHog MCP, file write |
-| **Instructions** | Follow `agents/marketing.md`. Review last 30 days of funnel + retention data. Generate 5 experiment ideas ranked by ICE score. Save to `outputs/YYYY-MM-01-experiment-backlog.md`. |
+| **Tools** | PostHog MCP, Notion MCP |
+| **Instructions** | Follow `agents/marketing.md` and `context/experiments.md`. Review last 30 days of funnel + retention data. Generate up to 5 acquisition-first experiment ideas. **Upsert into Notion Experiments** with lean properties (Status=`idea`, Domain(s), Priority) and the full page-body template (Goal, Hypothesis, Primary metric, Channel & effort, Execution plan). Optional short summary in `outputs/` — Notion remains canonical. |
 
 ## 3. Post-release insight snapshot
 
@@ -26,13 +26,14 @@ Templates for scheduled agent workflows. Create these in Cursor's Automations ed
 |-------|-------|
 | **Trigger** | Git — tag push matching `v*` on `stylens` repo |
 | **Repo** | `gostylens-harness` |
-| **Tools** | PostHog MCP |
-| **Instructions** | Compare key metrics (signup, activation, purchase) for 7 days before vs 7 days after the release tag date. Note any significant shifts. Save to `outputs/YYYY-MM-DD-release-snapshot.md`. |
+| **Tools** | PostHog MCP, Notion MCP (optional) |
+| **Instructions** | Compare key metrics (signup, activation, purchase) for 7 days before vs 7 days after the release tag date. Note any significant shifts. Save to `outputs/YYYY-MM-DD-release-snapshot.md`. If a running Notion experiment relates to the release, update its Result with numbers. |
 
 ## Setup checklist
 
 - [ ] PostHog MCP connected in Cursor dashboard
-- [ ] `.env` filled with PostHog personal API key
+- [ ] Notion MCP connected; Experiments DB URL/ID in `context/experiments.md` and `.env`
+- [ ] `.env` filled with PostHog personal API key + `NOTION_EXPERIMENTS_DATABASE_ID`
 - [ ] PostHog insights created for core funnels (see `context/analytics-events.md`)
 - [ ] `context/marketing/positioning.md` filled in with real copy
 - [ ] Automations created from templates above
@@ -42,7 +43,8 @@ Templates for scheduled agent workflows. Create these in Cursor's Automations ed
 You can also trigger any agent prompt ad-hoc in Cursor chat:
 
 ```
-@agents/marketing.md @context/marketing/positioning.md
+@agents/marketing.md @context/marketing/positioning.md @context/experiments.md
 
 Query PostHog for intro funnel last 14 days. Propose 3 TikTok hooks to improve intro completion.
+Create acquisition experiments in Notion with Primary metrics from analytics-events.md.
 ```

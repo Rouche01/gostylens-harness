@@ -25,10 +25,11 @@ Source: `stylens/lib/` — PostHog via `AnalyticsService`.
 
 | Event | Properties | Notes |
 |-------|------------|-------|
-| `style_analysis_session_created` | `session_id` | New styling session |
-| `style_analysis_stream_started` | `session_id` | AI response streaming |
-| `style_analysis_stream_completed` | `session_id` | Stream finished |
-| `style_analysis_stream_error` | `session_id`, `error` | Stream failed |
+| `style_analysis_session_created` | `session_id` | In app code — **not observed in PostHog** (0 events as of 2026-09-04). Do not use for funnels until fixed. |
+| `ai_stream_started` | `session_id`, `context_mode` | AI response streaming started — **live** |
+| `ai_stream_completed` | `session_id`, … | Stream finished successfully — **use as activation** |
+| `ai_stream_failed` | `session_id`, … | Stream failed |
+| `message_sent` | `session_id`, `user_role`, `has_text`, `has_images` | User message in a styling session — soft activation signal |
 
 ## Subscriptions (RevenueCat)
 
@@ -58,8 +59,8 @@ Source: `stylens/lib/` — PostHog via `AnalyticsService`.
 ## Suggested PostHog insights to create
 
 1. **Onboarding funnel**: `intro_started` → `intro_completed` → `auth_succeeded`
-2. **Activation funnel**: `auth_succeeded` → `style_analysis_session_created`
-3. **Monetization funnel**: `style_analysis_session_created` → `purchase_started` → `purchase_completed`
+2. **Activation funnel**: `auth_succeeded` → `ai_stream_completed` (prefer over dead `style_analysis_session_created`)
+3. **Monetization funnel**: `ai_stream_completed` → `purchase_started` → `purchase_completed`
 4. **D1/D7 retention** by `auth_succeeded` cohort
 5. **Purchase conversion** by `package_type` and platform
 

@@ -11,7 +11,7 @@ GoStylens is an AI-powered personal styling app. Users capture outfit photos, ge
 3. **Onboarding** — name, gender, preferences
 4. **Home** — three tabs: Closet, Capture, History
 5. **Capture** — take/upload outfit photos for analysis
-6. **Style analysis** — streaming AI stylist session (`style_analysis_session_created`)
+6. **Style analysis** — streaming AI stylist session (activation: `ai_stream_completed`)
 7. **Subscription** — RevenueCat paywall (`purchase_started` → `purchase_completed`)
 
 ## Key features

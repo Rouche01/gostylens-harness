@@ -47,11 +47,19 @@ Agents treat these as **read-only**. Ship code changes in those repos, not here.
 - Backend for analysis sessions, usage limits, subscription sync
 - Staging / prod API hosts: see `context/product.md`
 
+## Notion (Experiments backlog)
+
+- **Canonical backlog**: [Experiments](https://www.notion.so/3cf3d958f9998087b60ccea1e848d2ad) under GoStylens teamspace → GoStylens
+- **Schema / lifecycle**: `context/experiments.md`
+- **Database ID**: `3cf3d958-f999-8087-b60c-cea1e848d2ad`
+- **Harness role**: agents create/update rows via Notion MCP; PostHog supplies evidence; git does not mirror the backlog
+- **Env**: `NOTION_EXPERIMENTS_DATABASE_ID` in `.env`
+- **Priority bias**: `Domain(s)` = `User Acquisition` (or both domains when mixed)
+
 ## Future integrations
 
 | Tool | Use case |
 |------|----------|
 | Slack | Weekly digest delivery |
-| Linear | Growth experiment tracking |
+| Linear | Eng / product issue tracking (experiments stay in Notion) |
 | App Store Connect | ASO copy drafts vs. conversion data |
-| Notion | Campaign calendar sync |

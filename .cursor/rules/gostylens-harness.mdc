@@ -6,12 +6,22 @@ This repo is for GoStylens operations — marketing, growth analytics, release c
 
 ## MCP routing
 
-| Task | MCP |
-|------|-----|
-| PostHog queries, funnels, experiments | PostHog MCP |
+| Task | MCP / source |
+|------|----------------|
+| PostHog queries, funnels, experiments metrics | PostHog MCP |
+| Experiment backlog (create/update/decide) | Notion MCP → **Experiments** DB (`context/experiments.md`) |
 | Marketing copy, positioning | Read `context/marketing/` |
 | Product facts | Read `context/product.md` |
 | Event names | Read `context/analytics-events.md` — use exact names |
+
+## Experiments
+
+- Notion **Experiments** (GoStylens → Experiments) is the canonical backlog — see `context/experiments.md`.
+- **Lean properties**: Name, Domain(s), Status, Priority, Decision. Details live in the page-body template.
+- Default priority: **user acquisition** (`Domain(s)` = `User Acquisition`, or both when mixed).
+- Before `running`: Goal, Hypothesis, Primary metric, execution plan required in the page body (from template `3cf3d958-f999-807b-9697-c7e052f6192f`).
+- Agent-created rows: use that Notion `template_id`; do not duplicate the empty template body.
+- At `post-decision`: set Decision property; Result + Decision notes in the page body.
 
 ## Secrets
 
@@ -22,6 +32,7 @@ This repo is for GoStylens operations — marketing, growth analytics, release c
 
 - Save generated reports and drafts to `outputs/` with dated filenames.
 - Commit outputs when they're worth keeping as history; otherwise gitignore handles them.
+- Experiment status/results stay in Notion.
 
 ## When querying PostHog
 
