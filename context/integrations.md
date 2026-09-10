@@ -68,10 +68,22 @@ Agents treat these as **read-only**. Ship code changes in those repos, not here.
 - **Token:** System User (preferred) or Graph API Explorer user token with `ads_read`
 - Pair Meta cost metrics with PostHog product events (`auth_succeeded`, `ai_stream_completed`) — Meta alone won’t show true activation without the app SDK
 
+## App Store Connect (Analytics API)
+
+- **Use:** product page views, impressions, conversion-ish engagement vs Meta LPVs / PostHog installs
+- **Env:** `APPLE_ASC_ISSUER_ID`, `APPLE_ASC_KEY_ID`, `APPLE_ASC_PRIVATE_KEY_PATH`
+  - Optional: `APPLE_ASC_BUNDLE_ID` (default GoStylens: `com.stylenslab.gostylens`) or `APPLE_ASC_APP_ID`
+- **Script:** `./scripts/asc-analytics.sh` (Python helper: `scripts/asc_analytics.py`)
+  - First run creates an **ONGOING** analytics report request if missing
+  - Pulls `APP_STORE_ENGAGEMENT` report segments into `outputs/`
+  - `./scripts/asc-analytics.sh --list-apps` to resolve Apple IDs
+- **Deps:** local `.venv` with `PyJWT` + `cryptography` (`python3 -m venv .venv && .venv/bin/pip install PyJWT cryptography`)
+- **Caveats:** Apple often lags **1–2 days**; first ONGOING files can take hours after enable. Not live clickstream.
+- **Key setup:** App Store Connect → Users and Access → Integrations → App Store Connect API (Admin / access to App Analytics)
+
 ## Future integrations
 
 | Tool | Use case |
 |------|----------|
 | Slack | Weekly digest delivery |
 | Linear | Eng / product issue tracking (experiments stay in Notion) |
-| App Store Connect | ASO copy drafts vs. conversion data |
