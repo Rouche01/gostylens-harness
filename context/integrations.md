@@ -31,6 +31,7 @@ Agents treat these as **read-only**. Ship code changes in those repos, not here.
 | **stylens** | `../stylens` | [Rouche01/stylens](https://github.com/Rouche01/stylens) | Flutter app; primary PostHog event source (`lib/` analytics calls) |
 | **stylens-lp** | `../stylens-lp` | [Rouche01/stylens-lp](https://github.com/Rouche01/stylens-lp) | Landing page ([gostylens.app](https://gostylens.app)); Cloudflare Pages; same PostHog project |
 | **stylens-lite-api** | `../stylens-lite-api` | [Rouche01/stylens-lite-api](https://github.com/Rouche01/stylens-lite-api) | Cloudflare Workers API — style sessions, users, subscriptions (D1, R2, Supabase) |
+| **stylens-ops** | `../stylens-ops` | (local scaffold; remote TBD) | Runnable ops — community HITL, Telegram approval, future channels. Strategy stays in this harness. |
 
 ### App (`stylens`)
 
@@ -46,6 +47,14 @@ Agents treat these as **read-only**. Ship code changes in those repos, not here.
 
 - Backend for analysis sessions, usage limits, subscription sync
 - Staging / prod API hosts: see `context/product.md`
+
+### Ops (`stylens-ops`)
+
+- **Role:** execute approved ops (bots, crons, webhooks) — not experiment design
+- **First capability:** community scout → draft → Telegram Approve/Edit/Abort → Reddit execute
+- **Hard rule:** never auto-post; human gate required
+- **Plan:** Cursor plan `stylens-ops community HITL` + `../stylens-ops/.cursor/plans/`
+- Agents propose copy/rules here; ship runtime code in `stylens-ops`
 
 ## Notion (Experiments backlog)
 
@@ -85,5 +94,6 @@ Agents treat these as **read-only**. Ship code changes in those repos, not here.
 
 | Tool | Use case |
 |------|----------|
-| Slack | Weekly digest delivery |
+| Telegram | HITL approvals for `stylens-ops` (community drafts); optional digests |
+| Slack | Optional team digests (prefer Telegram for solo HITL) |
 | Linear | Eng / product issue tracking (experiments stay in Notion) |

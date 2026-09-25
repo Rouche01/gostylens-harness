@@ -140,6 +140,7 @@ Or for analytics:
 |-------|------|-------------------|
 | **Marketing** | `agents/marketing.md` | Campaign ideas, copy variants, Priority-ranked Notion experiments |
 | **Growth analyst** | `agents/growth-analyst.md` | Funnel diagnosis, retention, weekly metric reports, closing experiment results |
+| **Community** | `agents/community.md` | Organic community drafts, intensity rules, acquisition experiments (runtime in `stylens-ops`) |
 
 Both agents **cite PostHog metrics**, use **exact event names** from `context/analytics-events.md`, and treat Notion **Experiments** as the backlog (`context/experiments.md`).
 
