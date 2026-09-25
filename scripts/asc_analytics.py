@@ -176,19 +176,35 @@ def download_url(url: str) -> bytes:
         return resp.read()
 
 
+def _tsv_rows(text: str) -> list[dict[str, str]]:
+    # newline='' is required so embedded newlines in fields do not break DictReader
+    return list(csv.DictReader(io.StringIO(text, newline=""), delimiter="\t"))
+
+
 def parse_tsv_bytes(blob: bytes) -> list[dict[str, str]]:
-    # Segments may be plain TSV or zip of TSV(s)
+    # Segments may be gzip TSV, zip of TSV(s), or plain TSV
+    if blob[:2] == b"\x1f\x8b":
+        import gzip
+
+        text = gzip.decompress(blob).decode("utf-8-sig", errors="replace")
+        return _tsv_rows(text)
     if blob[:2] == b"PK":
         rows: list[dict[str, str]] = []
         with zipfile.ZipFile(io.BytesIO(blob)) as zf:
             for name in zf.namelist():
                 if name.endswith("/") or name.startswith("__"):
                     continue
-                text = zf.read(name).decode("utf-8-sig", errors="replace")
-                rows.extend(list(csv.DictReader(io.StringIO(text), delimiter="\t")))
+                raw = zf.read(name)
+                if raw[:2] == b"\x1f\x8b":
+                    import gzip
+
+                    text = gzip.decompress(raw).decode("utf-8-sig", errors="replace")
+                else:
+                    text = raw.decode("utf-8-sig", errors="replace")
+                rows.extend(_tsv_rows(text))
         return rows
     text = blob.decode("utf-8-sig", errors="replace")
-    return list(csv.DictReader(io.StringIO(text), delimiter="\t"))
+    return _tsv_rows(text)
 
 
 INTERESTING_COL_HINTS = (
@@ -350,7 +366,7 @@ def main() -> int:
             key=lambda i: (i.get("attributes") or {}).get("processingDate") or "",
             reverse=True,
         )
-        for inst in instances_sorted[:3]:
+        for inst in instances_sorted[:10]:
             iattrs = inst.get("attributes") or {}
             inst_id = inst["id"]
             print(f"  Instance {inst_id}  processingDate={iattrs.get('processingDate')}  "
