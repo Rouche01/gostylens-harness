@@ -22,10 +22,10 @@ todos:
     status: completed
   - id: notion-ideas
     content: Create 2–3 User Acquisition Notion experiment idea rows from transferable signals
-    status: pending
+    status: completed
   - id: cadence-later
     content: Optional later — document monthly scan in automations/README.md once manual loop works
-    status: pending
+    status: completed
 isProject: true
 ---
 
@@ -169,7 +169,7 @@ Growth analyst: confirm measurability before promoting past `idea`.
 | Monthly | Re-scan watchlist; update Last reviewed; ≤5 new ideas |
 | After experiment closes | Revisit related competitor notes |
 
-Optional later: Cursor Automation for monthly scan — only after the manual loop proves useful. Document in `automations/README.md` then. No `stylens-ops` involvement.
+Documented: `automations/README.md` §4 (15th monthly Automation + `/competitor-scan`); README Automation table; `competitors.md` how-to. No `stylens-ops` involvement. Create the Cursor Automation when ready.
 
 ## Implementation order
 
@@ -177,7 +177,7 @@ Optional later: Cursor Automation for monthly scan — only after the manual loo
 2. User seeds real competitor names/links
 3. First research pass: 2–3 directs → briefs
 4. Create Notion idea rows
-5. (Later) monthly automation doc
+5. Monthly cadence docs — done (`automations/README.md` §4)
 
 Effort: scaffold **S**; first research pass is the real work.
 

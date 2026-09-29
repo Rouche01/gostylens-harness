@@ -5,8 +5,10 @@ Living watchlist for GoStylens competitive intel. Agents research from this list
 **How to use**
 
 1. Keep rows current (links, type, watch focus, last reviewed).
-2. Run a competitor scan via the marketing agent → brief → Notion `idea` rows.
-3. Prefer public signals only (ASO, LP, social, pricing pages). Label observation vs inference.
+2. Run a scan: `/competitor-scan` (or `/competitor-scan {Name}` / `monthly --notion`) — see `.cursor/skills/competitor-scan/SKILL.md` and `agents/marketing.md`.
+3. Briefs land in `outputs/`; experiment ideas in Notion (not here).
+4. Prefer public signals only (ASO, LP, social, pricing pages). Label observation vs inference.
+5. Cadence: ad hoc anytime; optional monthly Automation on the 15th (`automations/README.md` §4).
 
 **Types**
 

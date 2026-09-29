@@ -156,8 +156,9 @@ See [`automations/README.md`](automations/README.md) for Cursor Automation templ
 | Weekly growth digest | Monday schedule | `outputs/YYYY-MM-DD-growth-report.md` (+ Notion idea rows if useful) |
 | Monthly experiment backlog | 1st of month | New/updated Notion Experiments rows (acquisition-first) |
 | Post-release snapshot | App `v*` tag | Before/after metric comparison |
+| Monthly competitor scan | 15th of month (optional) | `outputs/YYYY-MM-DD-competitor-*.md` + ≤5 Notion ideas; or run `/competitor-scan` ad hoc |
 
-Create these in Cursor’s Automations editor; the templates describe triggers, tools, and prompts.
+Create these in Cursor’s Automations editor; the templates describe triggers, tools, and prompts. Competitor intel: watchlist in `context/marketing/competitors.md`, slash skill `/competitor-scan`.
 
 ---
 

@@ -29,14 +29,27 @@ Templates for scheduled agent workflows. Create these in Cursor's Automations ed
 | **Tools** | PostHog MCP, Notion MCP (optional) |
 | **Instructions** | Compare key metrics (signup, activation, purchase) for 7 days before vs 7 days after the release tag date. Note any significant shifts. Save to `outputs/YYYY-MM-DD-release-snapshot.md`. If a running Notion experiment relates to the release, update its Result with numbers. |
 
-## 4. Monthly competitor scan (optional)
+## 4. Monthly competitor scan
+
+Optional after the manual `/competitor-scan` loop works (briefs + Notion ideas verified once). Prefer scheduling on a **different day** than automation #2 (e.g. 1st = experiment backlog, **15th** = competitor scan) so agents don’t compete for the same Notion edits.
 
 | Field | Value |
 |-------|-------|
-| **Trigger** | Schedule — 1st of month (or ad-hoc) |
+| **Trigger** | Schedule — 15th of month 10:00 AM (or ad-hoc via `/competitor-scan`) |
 | **Repo** | `gostylens-harness` |
-| **Tools** | perplexity-search (preferred), WebSearch/WebFetch fallback, Browser for deep dives, Notion MCP if creating ideas |
-| **Instructions** | Run `/competitor-scan monthly --notion` skill (see `.cursor/skills/competitor-scan/SKILL.md`). Follow `agents/marketing.md` competitor-scan template. Re-scan stale watchlist rows; save briefs to `outputs/`; upsert ≤5 Notion `idea` rows. |
+| **Tools** | perplexity-search (preferred) → WebSearch/WebFetch fallback → Browser MCP for LP/ASO deep dives; Notion MCP for ideas |
+| **Skill** | `.cursor/skills/competitor-scan/SKILL.md` |
+| **Instructions** | Follow `agents/marketing.md` → Competitor scan → experiments. Equivalent prompt: `/competitor-scan monthly --notion`. Re-scan watchlist rows with `Last reviewed` empty or older than ~30 days (max 3 unless monthly mode). Write `outputs/YYYY-MM-DD-competitor-{slug}.md`. Update `Last reviewed` in `context/marketing/competitors.md`. Dedupe Notion Experiments; create ≤5 `idea` rows (`Domain(s)` = `User Acquisition`, Priority P1/P2, template_id `3cf3d958-f999-807b-9697-c7e052f6192f`). Link brief paths under Assets / links. End with a short summary of who was scanned and top transferable ideas. |
+
+### Cadence (manual + scheduled)
+
+| Cadence | How | Output |
+|---------|-----|--------|
+| Ad hoc | `/competitor-scan Lekondo` (or names) | Brief(s) under `outputs/`; Notion only with `--notion` |
+| Monthly | Automation #4 or `/competitor-scan monthly --notion` | Stale watchlist re-scan; ≤5 Notion ideas |
+| After experiment closes | Chat: revisit related competitor notes in briefs | Optional brief refresh; update Notion Result if relevant |
+
+No `stylens-ops` involvement. Do not auto-post.
 
 ## Setup checklist
 
