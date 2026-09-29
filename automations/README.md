@@ -9,7 +9,8 @@ Templates for scheduled agent workflows. Create these in Cursor's Automations ed
 | **Trigger** | Schedule — every Monday 9:00 AM |
 | **Repo** | `gostylens-harness` |
 | **Tools** | PostHog MCP, Notion MCP, file write |
-| **Instructions** | Follow `agents/growth-analyst.md`. Run the weekly health check for the last 7 days. Save report to `outputs/YYYY-MM-DD-growth-report.md`. Summarize top 3 findings. If clear acquisition gaps appear, create or update Notion Experiments `idea` rows (`Domain(s)` = `User Acquisition`, or both for mixed) — do not duplicate existing rows. |
+| **Skill** | `/growth-digest` (`.cursor/skills/growth-digest/SKILL.md`) |
+| **Instructions** | Equivalent to `/growth-digest --notion`. Follow `agents/growth-analyst.md`. Run the weekly health check for the last 7 days. Save report to `outputs/YYYY-MM-DD-growth-report.md`. Summarize top 3 findings. If clear acquisition gaps appear, create or update Notion Experiments `idea` rows (`Domain(s)` = `User Acquisition`, or both for mixed) — do not duplicate existing rows. |
 
 ## 2. Monthly marketing experiment backlog
 
@@ -18,7 +19,8 @@ Templates for scheduled agent workflows. Create these in Cursor's Automations ed
 | **Trigger** | Schedule — 1st of month |
 | **Repo** | `gostylens-harness` |
 | **Tools** | PostHog MCP, Notion MCP |
-| **Instructions** | Follow `agents/marketing.md` and `context/experiments.md`. Review last 30 days of funnel + retention data. Generate up to 5 acquisition-first experiment ideas. **Upsert into Notion Experiments** with lean properties (Status=`idea`, Domain(s), Priority) and the full page-body template (Goal, Hypothesis, Primary metric, Channel & effort, Execution plan). Optional short summary in `outputs/` — Notion remains canonical. |
+| **Skill** | `/experiment-backlog` (`.cursor/skills/experiment-backlog/SKILL.md`) |
+| **Instructions** | Equivalent to `/experiment-backlog`. Follow `agents/marketing.md` and `context/experiments.md`. Review last 30 days of funnel + retention data. Generate up to 5 acquisition-first experiment ideas. **Upsert into Notion Experiments** with lean properties (Status=`idea`, Domain(s), Priority) and the full page-body template (Goal, Hypothesis, Primary metric, Channel & effort, Execution plan). Optional short summary in `outputs/` — Notion remains canonical. |
 
 ## 3. Post-release insight snapshot
 
@@ -27,7 +29,8 @@ Templates for scheduled agent workflows. Create these in Cursor's Automations ed
 | **Trigger** | Git — tag push matching `v*` on `stylens` repo |
 | **Repo** | `gostylens-harness` |
 | **Tools** | PostHog MCP, Notion MCP (optional) |
-| **Instructions** | Compare key metrics (signup, activation, purchase) for 7 days before vs 7 days after the release tag date. Note any significant shifts. Save to `outputs/YYYY-MM-DD-release-snapshot.md`. If a running Notion experiment relates to the release, update its Result with numbers. |
+| **Skill** | `/release-snapshot` (`.cursor/skills/release-snapshot/SKILL.md`) |
+| **Instructions** | Equivalent to `/release-snapshot <tag> --notion`. Compare key metrics (signup, activation, purchase) for 7 days before vs 7 days after the release tag date. Note any significant shifts. Save to `outputs/YYYY-MM-DD-release-snapshot.md`. If a running Notion experiment relates to the release, update its Result with numbers. |
 
 ## 4. Monthly competitor scan
 
@@ -59,31 +62,50 @@ No `stylens-ops` involvement. Do not auto-post.
 - [ ] PostHog insights created for core funnels (see `context/analytics-events.md`)
 - [ ] `context/marketing/positioning.md` filled in with real copy
 - [ ] Automations created from templates above
-- [ ] Optional: invoke `/competitor-scan` once manually to verify skill + research tools
+- [ ] Optional: invoke `/competitor-scan` and `/growth-digest` once manually to verify skills + MCPs
 
 ## Manual runs
 
-### Competitor scan (slash skill)
+### Slash skills (preferred)
 
-In Agent chat, type:
+All live under `.cursor/skills/*/SKILL.md` with `disable-model-invocation: true` — type `/skill-name` in Agent chat.
+
+| Skill | Use for |
+|-------|---------|
+| `/growth-digest` | Weekly health check → `outputs/` (+ `--notion`) |
+| `/funnel-diagnose` | Named funnel drop diagnosis |
+| `/experiment-backlog` | Monthly-style ≤5 Notion acquisition ideas |
+| `/campaign-ideas` | One drop → exactly 3 Notion ideas |
+| `/close-experiment` | Fill Result + Decision on a Notion experiment |
+| `/copy-draft` | ASO / social / email / LP variants |
+| `/competitor-scan` | Competitor briefs → optional Notion |
+| `/release-snapshot` | Pre/post release PostHog compare |
+| `/meta-ads-review` | Meta script + PostHog activation pairing |
+| `/aso-pulse` | ASC analytics pull + ASO summary |
+| `/community-draft` | Human-gated community drafts (no auto-post) |
+| `/sync-events` | Sync event taxonomy from `stylens` |
+
+### Competitor scan examples
 
 ```text
 /competitor-scan
-```
-
-Or target specific competitors / create Notion rows:
-
-```text
 /competitor-scan Lekondo
 /competitor-scan Lekondo Acloset --notion
 /competitor-scan monthly --notion
 ```
 
-Skill lives at `.cursor/skills/competitor-scan/SKILL.md` (`disable-model-invocation: true` — only runs when you invoke it).
+### Other examples
 
-### Other marketing prompts
+```text
+/growth-digest --notion
+/funnel-diagnose activation 14d
+/close-experiment https://app.notion.com/p/…
+/meta-ads-review last_7d campaign
+/aso-pulse
+/sync-events
+```
 
-You can also trigger any agent prompt ad-hoc in Cursor chat:
+### Freeform (still works)
 
 ```
 @agents/marketing.md @context/marketing/positioning.md @context/experiments.md

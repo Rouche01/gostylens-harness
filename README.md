@@ -70,7 +70,9 @@ Agents combine this repo’s docs with live PostHog data (via MCP) and the Notio
 gostylens-harness/
 ├── README.md                 ← you are here
 ├── .env.example              ← secrets template (copy to .env)
-├── .cursor/rules/            ← Cursor rules for this repo
+├── .cursor/
+│   ├── rules/                ← Cursor rules for this repo
+│   └── skills/               ← slash skills (/growth-digest, /competitor-scan, …)
 ├── context/
 │   ├── product.md            ← product overview & user journey
 │   ├── analytics-events.md   ← PostHog event taxonomy
@@ -145,6 +147,25 @@ Or for analytics:
 
 Both agents **cite PostHog metrics**, use **exact event names** from `context/analytics-events.md`, and treat Notion **Experiments** as the backlog (`context/experiments.md`).
 
+### Slash skills
+
+Repeatable workflows in `.cursor/skills/` — type `/skill-name` in Agent chat. Details: [`automations/README.md`](automations/README.md).
+
+| Skill | Job |
+|-------|-----|
+| `/growth-digest` | Weekly PostHog health report |
+| `/funnel-diagnose` | Funnel drop diagnosis |
+| `/experiment-backlog` | ≤5 Notion acquisition ideas from last 30d |
+| `/campaign-ideas` | One drop → 3 Notion ideas |
+| `/close-experiment` | Close Notion experiment with PostHog Result |
+| `/copy-draft` | ASO / social / email / LP copy |
+| `/competitor-scan` | Competitor intel briefs |
+| `/release-snapshot` | Pre/post release metrics |
+| `/meta-ads-review` | Meta insights + PostHog |
+| `/aso-pulse` | App Store Connect engagement pulse |
+| `/community-draft` | Human-gated community drafts |
+| `/sync-events` | Sync taxonomy from `stylens` |
+
 ---
 
 ## Automation
@@ -158,7 +179,7 @@ See [`automations/README.md`](automations/README.md) for Cursor Automation templ
 | Post-release snapshot | App `v*` tag | Before/after metric comparison |
 | Monthly competitor scan | 15th of month (optional) | `outputs/YYYY-MM-DD-competitor-*.md` + ≤5 Notion ideas; or run `/competitor-scan` ad hoc |
 
-Create these in Cursor’s Automations editor; the templates describe triggers, tools, and prompts. Competitor intel: watchlist in `context/marketing/competitors.md`, slash skill `/competitor-scan`.
+Create these in Cursor’s Automations editor; the templates describe triggers, tools, and prompts. Prefer matching slash skills (`/growth-digest`, `/experiment-backlog`, `/release-snapshot`, `/competitor-scan`).
 
 ---
 
@@ -170,7 +191,7 @@ When the app adds PostHog events, sync names from the sibling `stylens` checkout
 ./scripts/sync-event-taxonomy.sh ../stylens
 ```
 
-Then update `context/analytics-events.md` with any new events and properties.
+Or run `/sync-events` in Agent chat. Then update `context/analytics-events.md` with any new events and properties.
 
 ---
 
