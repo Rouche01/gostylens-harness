@@ -13,7 +13,7 @@ todos:
     status: completed
   - id: readme-touch
     content: Mention competitors.md under marketing context in README.md
-    status: pending
+    status: completed
   - id: seed-list
     content: User fills real competitor names, links, type, ICP overlap, watch focus
     status: pending

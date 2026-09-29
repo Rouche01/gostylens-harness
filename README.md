@@ -77,9 +77,10 @@ gostylens-harness/
 │   ├── integrations.md       ← PostHog, Notion, RevenueCat, repos
 │   ├── experiments.md        ← Notion Experiments schema + DB link
 │   └── marketing/
-│       └── positioning.md    ← brand voice, ICP, messaging
+│       ├── positioning.md    ← brand voice, ICP, messaging
+│       └── competitors.md    ← competitor watchlist (intel → experiments)
 ├── agents/
-│   ├── marketing.md          ← campaigns, copy, Notion experiments
+│   ├── marketing.md          ← campaigns, copy, Notion experiments, competitor scans
 │   └── growth-analyst.md     ← funnels, retention, weekly health
 ├── automations/
 │   └── README.md             ← scheduled workflow templates
@@ -120,7 +121,7 @@ Notion is the canonical experiment backlog (acquisition-first).
 
 ### 5. Fill brand context
 
-Edit `context/marketing/positioning.md` with real positioning, ICP, and voice. Agents treat this as marketing source of truth.
+Edit `context/marketing/positioning.md` with real positioning, ICP, and voice. Agents treat this as marketing source of truth. Keep the competitor watchlist in `context/marketing/competitors.md` (see marketing agent: competitor scan → Notion ideas).
 
 ### 6. Run a task
 
