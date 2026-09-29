@@ -42,14 +42,14 @@ Optional after the manual `/competitor-scan` loop works (briefs + Notion ideas v
 | **Repo** | `gostylens-harness` |
 | **Tools** | perplexity-search (preferred) → WebSearch/WebFetch fallback → Browser MCP for LP/ASO deep dives; Notion MCP for ideas |
 | **Skill** | `.cursor/skills/competitor-scan/SKILL.md` |
-| **Instructions** | Follow `agents/marketing.md` → Competitor scan → experiments. Equivalent prompt: `/competitor-scan monthly --notion`. Re-scan watchlist rows with `Last reviewed` empty or older than ~30 days (max 3 unless monthly mode). Write `outputs/YYYY-MM-DD-competitor-{slug}.md`. Update `Last reviewed` in `context/marketing/competitors.md`. Dedupe Notion Experiments; create ≤5 `idea` rows (`Domain(s)` = `User Acquisition`, Priority P1/P2, template_id `3cf3d958-f999-807b-9697-c7e052f6192f`). Link brief paths under Assets / links. End with a short summary of who was scanned and top transferable ideas. |
+| **Instructions** | Follow `agents/marketing.md` → Competitor scan → experiments. Equivalent prompt: `/competitor-scan monthly --notion --goal acquisition` (override `--goal` when the monthly focus changes). Re-scan watchlist rows with `Last reviewed` empty or older than ~30 days (max 3 unless monthly mode). Write `outputs/YYYY-MM-DD-competitor-{slug}.md` with Goal header. Update `Last reviewed` in `context/marketing/competitors.md`. Dedupe Notion Experiments; create ≤5 `idea` rows (Domain(s) per goal table in the skill, Priority P1/P2, template_id `3cf3d958-f999-807b-9697-c7e052f6192f`). Link brief paths under Assets / links. End with goal + who was scanned + top transferable ideas. |
 
 ### Cadence (manual + scheduled)
 
 | Cadence | How | Output |
 |---------|-----|--------|
-| Ad hoc | `/competitor-scan Lekondo` (or names) | Brief(s) under `outputs/`; Notion only with `--notion` |
-| Monthly | Automation #4 or `/competitor-scan monthly --notion` | Stale watchlist re-scan; ≤5 Notion ideas |
+| Ad hoc | `/competitor-scan Lekondo --goal acquisition` | Brief(s) under `outputs/`; Notion only with `--notion` |
+| Monthly | Automation #4 or `/competitor-scan monthly --notion --goal …` | Stale watchlist re-scan; ≤5 Notion ideas |
 | After experiment closes | Chat: revisit related competitor notes in briefs | Optional brief refresh; update Notion Result if relevant |
 
 No `stylens-ops` involvement. Do not auto-post.
@@ -89,9 +89,10 @@ All live under `.cursor/skills/*/SKILL.md` with `disable-model-invocation: true`
 
 ```text
 /competitor-scan
-/competitor-scan Lekondo
-/competitor-scan Lekondo Acloset --notion
-/competitor-scan monthly --notion
+/competitor-scan --goal acquisition --notion
+/competitor-scan Lekondo Alta --goal engagement
+/competitor-scan --goal retention monthly --notion
+/competitor-scan --goal "get as many new users as possible"
 ```
 
 ### Other examples

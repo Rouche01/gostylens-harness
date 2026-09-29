@@ -50,20 +50,32 @@ Rank with the **Priority** property. Upsert into Notion; do not replace Notion w
 
 ### Competitor scan → experiments
 
-Turn public competitor marketing/growth signals into GoStylens acquisition ideas. Do **not** copy strategies wholesale — filter through ICP + `positioning.md`.
+Turn public competitor marketing/growth signals into GoStylens ideas for a **stated goal**. Do **not** copy strategies wholesale — filter through ICP + `positioning.md` + goal.
+
+**Goal** (required; default `acquisition` if unspecified):
+
+| Goal | Optimize for | Typical metrics |
+|------|--------------|-----------------|
+| `acquisition` / `tof` | Top of funnel — installs, signups | `intro_*`, `auth_succeeded` (`is_new_user`) |
+| `engagement` / `activation` | First value + habit | `ai_stream_completed`, `message_sent` |
+| `retention` | Return / repeat use | repeat sessions in 7d after signup |
+| `monetization` | Trial → paid | `purchase_started`, `purchase_completed` |
+| free text | Map to closest row; state mapping in the brief | from `analytics-events.md` |
+
+Slash skill: `/competitor-scan --goal acquisition` (see `.cursor/skills/competitor-scan/SKILL.md`).
 
 **Steps**
 
-1. Read `context/marketing/competitors.md` and `context/marketing/positioning.md`.
+1. Resolve goal (from user / `--goal` / default acquisition). Read `context/marketing/competitors.md` and `context/marketing/positioning.md`.
 2. Pick 1–3 watchlist rows (prefer `direct`, high ICP overlap, or user-named). Update `Last reviewed` after the brief.
-3. Research public ASO, LP, social, pricing, and creative claims using this **tool chain** (stop when you have enough for the brief):
+3. Research with the tool chain below — **bias queries and deep dives toward the goal** (e.g. acquisition → ASO/referral/creative; retention → calendars/community/re-engagement).
    1. **perplexity-search** — preferred first pass
    2. **Cursor WebSearch / WebFetch** — if perplexity-search fails or returns thin results; report `Failed: perplexity-search` when falling back
    3. **Browser MCP** — deep dives only (landing page, App Store listing, paywall/pricing page, key screenshots); not every scan
 4. Prefer recent sources; note date uncertainty. Label **observation** vs **inference**.
-5. Write a dated brief to `outputs/YYYY-MM-DD-competitor-brief.md` (or per-competitor: `outputs/YYYY-MM-DD-competitor-{slug}.md`) using the structure below.
-6. From **What’s transferable**, propose 2–3 experiments. Primary metrics must use exact event names from `context/analytics-events.md` — never invent metrics.
-7. Search Notion Experiments for duplicates; create `Status = idea` rows (`Domain(s)` = `User Acquisition`, Priority P1/P2) with `template_id` `3cf3d958-f999-807b-9697-c7e052f6192f`. Link the brief path under Assets / links.
+5. Write a dated brief to `outputs/YYYY-MM-DD-competitor-{slug}.md` using the structure below (include Goal).
+6. From **What’s transferable**, propose 2–3 experiments **for that goal**. Primary metrics must use exact event names from `context/analytics-events.md` — never invent metrics.
+7. Search Notion Experiments for duplicates; create `Status = idea` rows with Domain(s) matching the goal (see skill goal table), Priority P1/P2, `template_id` `3cf3d958-f999-807b-9697-c7e052f6192f`. Link the brief path under Assets / links.
 8. Optionally ask the growth analyst to confirm PostHog can measure a candidate before promoting past `idea`.
 
 **Brief structure**
@@ -71,29 +83,29 @@ Turn public competitor marketing/growth signals into GoStylens acquisition ideas
 ```markdown
 # Competitor brief — {Name} — YYYY-MM-DD
 
+## Goal
+{acquisition | engagement | retention | monetization | custom} — one line on what we’re optimizing
+
 ## Snapshot
 Type, ICP overlap, one-line positioning vs GoStylens
 
-## Acquisition signals
-Channels, creative hooks, ASO themes, LP claims, social proof
+## Goal-relevant signals
+Channels / product / monetization cues that matter for this goal (primary)
 
-## Monetization / conversion signals
-Pricing, trial, paywall timing, freemium (public only)
-
-## Product surface (marketing-visible)
-Onboarding claims, advertised core loop, pushed differentiators
+## Other signals (secondary)
+Brief notes outside the goal — do not dominate the brief
 
 ## What’s transferable
-≤3 bullets — adapted to GoStylens
+≤3 bullets — adapted to GoStylens **and this goal**
 
 ## What’s not transferable
-ICP / brand / unmeasurable mismatches
+ICP / brand / unmeasurable / off-goal mismatches
 
 ## Experiment candidates
-hypothesis · channel · effort S/M/L · primary PostHog metric
+hypothesis · channel · effort S/M/L · primary PostHog metric (goal-aligned)
 ```
 
-**Cadence:** ad hoc (“research competitor X”) or monthly watchlist re-scan (≤5 new Notion ideas). No ops auto-posting.
+**Cadence:** ad hoc (`/competitor-scan --goal …`) or monthly watchlist re-scan (≤5 new Notion ideas). No ops auto-posting.
 
 ## Save outputs
 
