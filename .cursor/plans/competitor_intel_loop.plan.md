@@ -19,7 +19,7 @@ todos:
     status: completed
   - id: first-briefs
     content: Run first research pass on 2–3 directs; save outputs/YYYY-MM-DD-competitor-brief.md
-    status: pending
+    status: completed
   - id: notion-ideas
     content: Create 2–3 User Acquisition Notion experiment idea rows from transferable signals
     status: pending

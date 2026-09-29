@@ -29,6 +29,15 @@ Templates for scheduled agent workflows. Create these in Cursor's Automations ed
 | **Tools** | PostHog MCP, Notion MCP (optional) |
 | **Instructions** | Compare key metrics (signup, activation, purchase) for 7 days before vs 7 days after the release tag date. Note any significant shifts. Save to `outputs/YYYY-MM-DD-release-snapshot.md`. If a running Notion experiment relates to the release, update its Result with numbers. |
 
+## 4. Monthly competitor scan (optional)
+
+| Field | Value |
+|-------|-------|
+| **Trigger** | Schedule — 1st of month (or ad-hoc) |
+| **Repo** | `gostylens-harness` |
+| **Tools** | perplexity-search (preferred), WebSearch/WebFetch fallback, Browser for deep dives, Notion MCP if creating ideas |
+| **Instructions** | Run `/competitor-scan monthly --notion` skill (see `.cursor/skills/competitor-scan/SKILL.md`). Follow `agents/marketing.md` competitor-scan template. Re-scan stale watchlist rows; save briefs to `outputs/`; upsert ≤5 Notion `idea` rows. |
+
 ## Setup checklist
 
 - [ ] PostHog MCP connected in Cursor dashboard
@@ -37,8 +46,29 @@ Templates for scheduled agent workflows. Create these in Cursor's Automations ed
 - [ ] PostHog insights created for core funnels (see `context/analytics-events.md`)
 - [ ] `context/marketing/positioning.md` filled in with real copy
 - [ ] Automations created from templates above
+- [ ] Optional: invoke `/competitor-scan` once manually to verify skill + research tools
 
 ## Manual runs
+
+### Competitor scan (slash skill)
+
+In Agent chat, type:
+
+```text
+/competitor-scan
+```
+
+Or target specific competitors / create Notion rows:
+
+```text
+/competitor-scan Lekondo
+/competitor-scan Lekondo Acloset --notion
+/competitor-scan monthly --notion
+```
+
+Skill lives at `.cursor/skills/competitor-scan/SKILL.md` (`disable-model-invocation: true` — only runs when you invoke it).
+
+### Other marketing prompts
 
 You can also trigger any agent prompt ad-hoc in Cursor chat:
 
