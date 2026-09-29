@@ -7,7 +7,7 @@ todos:
     status: completed
   - id: positioning-link
     content: Point positioning.md Competitors section at competitors.md as the detailed list
-    status: pending
+    status: completed
   - id: marketing-agent
     content: Add competitor-scan task template to agents/marketing.md (research → brief → Notion ideas)
     status: pending

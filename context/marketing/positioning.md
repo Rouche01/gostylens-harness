@@ -41,7 +41,11 @@ GoStylens uses AI to analyze your outfits, suggest improvements, and help you de
 
 ## Competitors / alternatives
 
-<!-- Add as you research -->
+**Detailed watchlist:** [`competitors.md`](competitors.md) (named directs/adjacents, links, watch focus). Use that file for research scans — not this section.
+
+High-level substitutes (positioning only):
+
 - Human stylists (expensive, not on-demand)
 - Generic AI chatbots (no wardrobe context)
 - Pinterest / Instagram (inspiration, not personalized feedback)
+- Digital closet / AI stylist apps — see watchlist (e.g. Acloset, Lekondo, Alta)
