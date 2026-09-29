@@ -16,7 +16,7 @@ todos:
     status: completed
   - id: seed-list
     content: User fills real competitor names, links, type, ICP overlap, watch focus
-    status: pending
+    status: completed
   - id: first-briefs
     content: Run first research pass on 2–3 directs; save outputs/YYYY-MM-DD-competitor-brief.md
     status: pending
