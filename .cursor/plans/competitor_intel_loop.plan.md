@@ -10,7 +10,7 @@ todos:
     status: completed
   - id: marketing-agent
     content: Add competitor-scan task template to agents/marketing.md (research → brief → Notion ideas)
-    status: pending
+    status: completed
   - id: readme-touch
     content: Mention competitors.md under marketing context in README.md
     status: pending
@@ -51,7 +51,7 @@ Internal data (PostHog, Meta, ASC) shows *where we leak*. Competitor intel sugge
 ```mermaid
 flowchart LR
   list[competitors.md]
-  research[perplexity-search]
+  research[Research_stack]
   brief[outputs_brief]
   mkt[marketing_agent]
   notion[Notion_Experiments]
@@ -65,7 +65,7 @@ flowchart LR
 | Layer | Role |
 |-------|------|
 | `context/marketing/competitors.md` | Who we watch (source of truth for the list) |
-| perplexity-search | Public ASO / social / LP / pricing / creative signals |
+| Research stack | perplexity-search → WebSearch/WebFetch → Browser (deep dive) |
 | `outputs/YYYY-MM-DD-competitor-brief.md` | Dated research artifact |
 | `agents/marketing.md` | Synthesize → experiment candidates |
 | Notion Experiments | Canonical `idea` → `planned` → `running` → `post-decision` |
@@ -74,7 +74,7 @@ flowchart LR
 ## Locked defaults
 
 - **List storage:** markdown in harness (`competitors.md`) for v1 — git history, Cursor-native. Notion DB only if non-Cursor editing becomes needed.
-- **Research MCP:** `perplexity-search` (web research), not coding MCP.
+- **Research stack:** prefer `perplexity-search` → Cursor WebSearch/WebFetch on failure → Browser MCP for LP/ASO/paywall deep dives. Not coding MCP.
 - **Experiment handoff:** Notion MCP + existing template (`context/experiments.md`); default `Domain(s)` = `User Acquisition`.
 - **Filter:** every idea must fit ICP + `positioning.md` and map to an exact event from `analytics-events.md`.
 
@@ -105,7 +105,7 @@ Keep short “alternatives” bullets; link Differentiation / Competitors to `co
 Add task template **Competitor scan → experiments**:
 
 1. Read `competitors.md` + `positioning.md`
-2. Research via perplexity-search
+2. Research via perplexity-search → WebSearch/WebFetch fallback → Browser deep dive
 3. Write dated brief under `outputs/`
 4. Propose 2–3 experiments; dedupe Notion; create `idea` rows with template_id
 
@@ -147,6 +147,7 @@ Agent rules:
 - Label **observation** vs **inference**
 - Prefer recent sources; note date uncertainty
 - Never invent metrics — only events from `analytics-events.md`
+- On perplexity-search failure: report Failed and continue with WebSearch/WebFetch
 
 ## Phase 3 — Synthesis → Notion
 
