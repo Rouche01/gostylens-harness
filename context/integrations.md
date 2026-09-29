@@ -53,7 +53,7 @@ Agents treat these as **read-only**. Ship code changes in those repos, not here.
 - **Role:** execute approved ops (bots, crons, webhooks) — not experiment design
 - **First capability:** community scout → draft → Telegram Approve/Edit/Abort → Reddit execute
 - **Hard rule:** never auto-post; human gate required
-- **Plan:** Cursor plan `stylens-ops community HITL` + `../stylens-ops/.cursor/plans/`
+- **Plan:** `../stylens-ops/.cursor/plans/stylens_ops_community_hitl.plan.md` (canonical; open in the `stylens-ops` workspace)
 - Agents propose copy/rules here; ship runtime code in `stylens-ops`
 
 ## Notion (Experiments backlog)
