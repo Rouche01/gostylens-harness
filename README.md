@@ -160,6 +160,7 @@ Repeatable workflows in `.cursor/skills/` — type `/skill-name` in Agent chat. 
 | `/close-experiment` | Close Notion experiment with PostHog Result |
 | `/copy-draft` | ASO / social / email / LP copy |
 | `/competitor-scan` | Competitor intel briefs (optional `--goal`) |
+| `/marketing-research` | Spitball ideas → data-backed experiment verdict |
 | `/release-snapshot` | Pre/post release metrics |
 | `/meta-ads-review` | Meta insights + PostHog |
 | `/aso-pulse` | App Store Connect engagement pulse |

@@ -48,6 +48,24 @@ For App Store, social, or email — provide 2–3 variants with rationale. If ti
 
 Rank with the **Priority** property. Upsert into Notion; do not replace Notion with a markdown-only backlog.
 
+### Marketing research → idea check
+
+Spitball rough marketing/growth ideas; ground each in PostHog + positioning + Notion duplicates; return a verdict (**pursue / reshape / park / kill**) and, for keepers, a tight experiment form.
+
+Slash skill: `/marketing-research` (see `.cursor/skills/marketing-research/SKILL.md`).
+
+**Orchestration:** May compose other skills inline for evidence — e.g. `/funnel-diagnose`, `/competitor-scan`, `/aso-pulse`, `/meta-ads-review`, `/growth-digest`, `/release-snapshot`, `/sync-events`, and after a pursue verdict `/copy-draft` or `/community-draft` when drafting the smallest test. Cap sibling deep-dives; fold evidence into the verdict (see skill compose table). `--notion` / `--dry-run` on the parent call govern Notion writes from siblings too.
+
+**Steps**
+
+1. Collect 1–5 raw ideas from the user (ask if `/marketing-research` alone). Resolve **goal** (default acquisition) and PostHog lookback (default 14d).
+2. Read positioning, product, analytics events; search Notion Experiments for duplicates.
+3. Query **PostHog** for evidence tied to each idea (funnel step, volume, segment). Never invent numbers. Compose sibling skills when a deeper pull is needed.
+4. Optional: light perplexity-search when the idea needs external context.
+5. Score each idea (evidence, goal fit, ICP, measurability, effort-vs-learning, novelty) → verdict.
+6. Chat-first output per skill template; optional `outputs/YYYY-MM-DD-idea-check-{slug}.md`.
+7. With `--notion`: create ≤3 `idea` rows for **pursue** (ask before **reshape**); `template_id` `3cf3d958-f999-807b-9697-c7e052f6192f`.
+
 ### Competitor scan → experiments
 
 Turn public competitor marketing/growth signals into GoStylens ideas for a **stated goal**. Do **not** copy strategies wholesale — filter through ICP + `positioning.md` + goal.

@@ -79,6 +79,7 @@ All live under `.cursor/skills/*/SKILL.md` with `disable-model-invocation: true`
 | `/close-experiment` | Fill Result + Decision on a Notion experiment |
 | `/copy-draft` | ASO / social / email / LP variants |
 | `/competitor-scan` | Competitor briefs → optional Notion |
+| `/marketing-research` | Spitball ideas → PostHog-backed experiment verdict |
 | `/release-snapshot` | Pre/post release PostHog compare |
 | `/meta-ads-review` | Meta script + PostHog activation pairing |
 | `/aso-pulse` | ASC analytics pull + ASO summary |
@@ -100,6 +101,8 @@ All live under `.cursor/skills/*/SKILL.md` with `disable-model-invocation: true`
 ```text
 /growth-digest --notion
 /funnel-diagnose activation 14d
+/marketing-research invite after first style win --goal acquisition
+/marketing-research "ASO: snap outfit get feedback" --notion
 /close-experiment https://app.notion.com/p/…
 /meta-ads-review last_7d campaign
 /aso-pulse
