@@ -77,6 +77,20 @@ Agents treat these as **read-only**. Ship code changes in those repos, not here.
 - **Token:** System User (preferred) or Graph API Explorer user token with `ads_read`
 - Pair Meta cost metrics with PostHog product events (`auth_succeeded`, `ai_stream_completed`) — Meta alone won’t show true activation without the app SDK
 
+## AppsFlyer (Pull API)
+
+- **Use:** attributed **installs** + in-app events (`af_complete_registration`, `af_activation`) to pair with Meta spend / PostHog
+- **Env:** `APPSFLYER_API_TOKEN` (API V2 Bearer), `APPSFLYER_APP_ID` (iOS: `id6760427902`)
+  - Optional: `APPSFLYER_MEDIA_SOURCE=facebook`, `APPSFLYER_EVENT_NAMES=af_complete_registration,af_activation`
+- **Script:** `./scripts/appsflyer-pull.sh [from] [to] [installs|events|both] [facebook]`
+  - Examples:
+    - `./scripts/appsflyer-pull.sh` — last 7 days, installs + events
+    - `./scripts/appsflyer-pull.sh 2026-10-06 2026-10-12 both facebook` — Meta-attributed only
+  - Writes CSV under `outputs/YYYY-MM-DD-appsflyer-*.csv` and prints a short summary
+- **Token setup:** AppsFlyer admin → Security center → API tokens → create **V2** token (not the SDK Dev Key)
+- **Caveats:** Raw Pull returns CSV; Meta install counts in Ads Manager often lag AF on iOS. Do not commit the token. Token must be regenerated if created before AppsFlyer’s V2 revocation cutoff (see AF docs).
+- **Pairing:** Meta Insights = spend/CTR; AppsFlyer = attributed installs + registration/activation; PostHog = product confirmation (`auth_succeeded`, `ai_stream_completed`)
+
 ## App Store Connect (Analytics API)
 
 - **Use:** product page views, impressions, conversion-ish engagement vs Meta LPVs / PostHog installs
